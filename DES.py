@@ -1,4 +1,4 @@
-plantext="0002000000000001"
+plantext="hello world"
 key="0002000000000001"
 def TransTextToBin(text,separater):
     tempbin=""
@@ -6,7 +6,6 @@ def TransTextToBin(text,separater):
         char=bin(ord(i)).replace("0b",'')
         while len(char)<8:
             char='0'+char
-        
         tempbin+=char
     return tempbin
 def TransBinToText(bins):
@@ -38,12 +37,12 @@ def TransDecToBin(dec):
     while len(result)<4:
         result='0'+result
     return result
-def DoPermutation(input,table,in_bitnumber):
+def DoPermutation(input,table,out_bitnumber):
     result=""
     with open(table+".txt",'r') as _table:
         ipcontent=_table.read().split(",")
-    for i in range(0,in_bitnumber):
-        result+=input[int(ipcontent[i])]
+    for i in range(0,out_bitnumber):
+        result+=input[int(ipcontent[i])-1]
     return result
 def Split(input):
     lenofblock=int(len(input)/2)
@@ -97,16 +96,35 @@ def DoXOR(input_1,input_2):
     result=int(input_1,2) ^ int(input_2,2)
     return bin(result).replace("0b","")
 def ShiftLeft(input,num_shift):
-    input=TransTextToBin(input,",")
+    number=len(input)
+    result=""
+    input=SplitToN(input,len(input))
     first=0
-    input=input.split(",")
     for i in range(0,num_shift):
         temp=input[first]
         for j in range(1,len(input)):
             input[j-1]=input[j]
         end=len(input)-1
         input[end]=temp
-    return input
+    for i in input:
+        result+=i
+    return result
+def KeyGenaration(key):
+    keys=list()
+    key=DoPermutation(key,"paritydrop_table",56)
+    leftkey,rightkey=Split(key)
+    rounds=16
+    for i in range(0,rounds):
+        if i==1 or i==2 or i==9 or i==16:
+            number=1
+        else: number=2
+        leftkey=ShiftLeft(leftkey,number)
+        rightkey=ShiftLeft(rightkey,number)
+        key=Merge(leftkey,rightkey)
+        key=DoPermutation(key,"key_compresstion_table",48)
+        keys.append(key)
+    print("1")
+    return keys
 def DESFuntion(input,key):
     input=DoPermutation(input,"etable",32)
     input=DoXOR(input,key)
@@ -117,4 +135,7 @@ def DoRoundMix(leftblock,rightblock,key):
     rightblock=DESFuntion(rightblock,key)
     next_rightblock=DoXOR(leftblock,rightblock)
     return next_leftblock,next_rightblock
-print(ShiftLeft(key,1))
+key=TransTextToBin(key,"")
+print(key)
+keys=KeyGenaration(key)
+
