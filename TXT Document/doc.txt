@@ -1,0 +1,3 @@
+As we have noted, the initial permutation (IP) happens only once and it happens before the first round. It suggests how the transposition in IP should proceed, as shown in the figure. For example, it says that the IP replaces the first bit of the original plain text block with the 58th bit of the original plain text, the second bit with the 50th bit of the original plain text block, and so on.
+
+This is nothing but  jugglery of bit positions of the original plain text block. the same rule applies to all the other bit positions shown in the figure.
