@@ -443,7 +443,7 @@ def DecryptFile(input_file, output_file,key):
         data.write(plantext)
 if __name__ == "__main__":
     if len(sys.argv) < 5:
-        print("Usage: python encode_program.py [encode/decode] input_file output_file key")
+        print("Usage: python DES.py [encrypt/decrypt] input_file output_file key")
         sys.exit(1)
     action = sys.argv[1]
     input_file = sys.argv[2]
