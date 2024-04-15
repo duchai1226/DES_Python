@@ -442,7 +442,7 @@ def DecryptFile(input_file, output_file,key):
     with open(output_file,'w') as data:
         data.write(plantext)
 if __name__ == "__main__":
-    if len(sys.argv) < 5:
+    if len(sys.argv) < 5 or len(sys.argv)>5:
         print("Usage: python DES.py [encrypt/decrypt] input_file output_file key")
         sys.exit(1)
     action = sys.argv[1]
