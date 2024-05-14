@@ -456,3 +456,4 @@ if __name__ == "__main__":
     else:
         print("Program don't know what do you want to do. Please use 'encrypt' or 'decrypt'.")
         sys.exit(1)
+print("Demo Docker")
